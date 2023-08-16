@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,3 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
+
+//Crud products
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('products', [ProductController::class, 'index']);
+    Route::post('order', [OrderController::class, 'create']);
+    Route::get('order', [OrderController::class, 'index']);
+});
